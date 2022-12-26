@@ -44,6 +44,9 @@ public class CoordenadorService {
         if (coordenador.getNome() == null || coordenador.getNome().trim().equals("")) {
             throw new RegraNegocioException("Nome inválido");
         }
+        if (coordenador.getEmail() == null || coordenador.getEmail().trim().equals("")) {
+            throw new RegraNegocioException("Email inválido");
+        }
         if (coordenador.getCurso() == null || coordenador.getCurso().getId() == null || coordenador.getCurso().getId() == 0) {
             throw new RegraNegocioException("Curso inválido");
         }

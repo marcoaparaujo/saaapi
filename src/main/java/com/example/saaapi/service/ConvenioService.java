@@ -19,7 +19,7 @@ public class ConvenioService {
         this.repository = repository;
     }
 
-    public List<Convenio> getAtividadesConvenios() {
+    public List<Convenio> getConvenios() {
         return repository.findAll();
     }
 

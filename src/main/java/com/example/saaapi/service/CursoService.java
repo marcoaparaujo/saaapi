@@ -43,5 +43,11 @@ public class CursoService {
         if (curso.getNome() == null || curso.getNome().trim().equals("")) {
             throw new RegraNegocioException("Nome inválido");
         }
+        if (curso.getPossuiEstagioObrigatorio() == null) {
+            throw new RegraNegocioException("Possui Estágio Obrigatório inválido");
+        }
+        if (curso.getPossuiEstagioNaoObrigatorio() == null) {
+            throw new RegraNegocioException("Possui Estágio Não Obrigatório inválido");
+        }
     }
 }
