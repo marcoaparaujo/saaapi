@@ -13,6 +13,7 @@ public class ConvenioDTO {
     private Long id;
     private String dataInicio;
     private String dataFim;
+    private Long idConcedente;
 
     public static ConvenioDTO create(Convenio convenio) {
         ModelMapper modelMapper = new ModelMapper();
