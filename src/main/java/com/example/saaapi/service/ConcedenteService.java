@@ -40,6 +40,12 @@ public class ConcedenteService {
     }
 
     public void validar(Concedente concedente) {
+        if (concedente.getNome() == null || concedente.getNome().trim().equals("")) {
+            throw new RegraNegocioException("Nome inválido");
+        }
+        if (concedente.getEmail() == null || concedente.getEmail().trim().equals("")) {
+            throw new RegraNegocioException("Email inválido");
+        }
         if (concedente.getDataInicio() == null || concedente.getDataInicio().trim().equals("")) {
             throw new RegraNegocioException("Data Início inválida");
         }
