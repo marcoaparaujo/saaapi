@@ -19,7 +19,7 @@ public class ConcedenteService {
         this.repository = repository;
     }
 
-    public List<Concedente> getConcedentess() {
+    public List<Concedente> getConcedentes() {
         return repository.findAll();
     }
 

@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/atividadescomplementares")
 @RequiredArgsConstructor
-public class AtividadeComplementaresController {
+public class AtividadeComplementarController {
 
     private final AtividadeComplementarService service;
     private final AlunoService alunoService;
