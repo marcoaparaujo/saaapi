@@ -47,7 +47,7 @@ public class EstagioService {
             throw new RegraNegocioException("Data Fim inválida");
         }
         if (estagio.getTipoEstagio() == null || estagio.getTipoEstagio() < 1 || estagio.getTipoEstagio() > 2) {
-            throw new RegraNegocioException("Tipo Pessoa inválida");
+            throw new RegraNegocioException("Tipo Estágio inválida");
         }
         if (estagio.getCargaHoraria() == null || estagio.getCargaHoraria() == 0) {
             throw new RegraNegocioException("Carga Horária inválida");

@@ -11,6 +11,9 @@ import org.modelmapper.ModelMapper;
 @AllArgsConstructor
 public class ConcedenteDTO {
     private Long id;
+    private String nome;
+    private String email;
+    private String celular;
     private Integer tipoPessoa;
     private String numeroDocumento;
     private String registroConselhoProfissional;
