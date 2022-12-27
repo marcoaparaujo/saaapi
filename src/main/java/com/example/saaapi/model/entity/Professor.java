@@ -9,9 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Coordenador extends Pessoa {
-    @ManyToOne
-    private Curso curso;
+
+public class Professor extends Pessoa {
+
 }

@@ -18,6 +18,10 @@ public class CursoDTO {
     private Integer periodoMinimoEstagioObrigatorio;
     private Boolean possuiEstagioNaoObrigatorio;
     private Integer cargaHorariaMinimaAtividadesComplementares;
+    private Long idCoordenador;
+    private Long idSupervisorEstagio;
+    private Long idSupervisorAtividadesComplementares;
+
 
     public static CursoDTO create(Curso curso) {
         ModelMapper modelMapper = new ModelMapper();

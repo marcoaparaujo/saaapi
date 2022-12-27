@@ -2,8 +2,11 @@ package com.example.saaapi.api.controller;
 
 import com.example.saaapi.api.dto.CursoDTO;
 import com.example.saaapi.exception.RegraNegocioException;
+import com.example.saaapi.model.entity.Aluno;
 import com.example.saaapi.model.entity.Curso;
+import com.example.saaapi.model.entity.Professor;
 import com.example.saaapi.service.CursoService;
+import com.example.saaapi.service.ProfessorService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -22,6 +25,7 @@ import java.util.stream.Collectors;
 public class CursoController {
 
     private final CursoService service;
+    private final ProfessorService professorService;
 
     @GetMapping()
     public ResponseEntity get() {
@@ -91,6 +95,31 @@ public class CursoController {
 
     public Curso converter(CursoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(dto, Curso.class);
+        Curso curso = modelMapper.map(dto, Curso.class);
+        if (dto.getIdCoordenador() != null) {
+            Optional<Professor> coordenador = professorService.getProfessorById(dto.getIdCoordenador());
+            if (!coordenador.isPresent()) {
+                curso.setCoordenador(null);
+            } else {
+                curso.setCoordenador(coordenador.get());
+            }
+        }
+        if (dto.getIdSupervisorEstagio() != null) {
+            Optional<Professor> supervisorEstagio = professorService.getProfessorById(dto.getIdSupervisorEstagio());
+            if (!supervisorEstagio.isPresent()) {
+                curso.setSupervisorEstagio(null);
+            } else {
+                curso.setSupervisorEstagio(supervisorEstagio.get());
+            }
+        }
+        if (dto.getIdSupervisorAtividadesComplementares() != null) {
+            Optional<Professor> supervisorAtividadesComplementares = professorService.getProfessorById(dto.getIdSupervisorAtividadesComplementares());
+            if (!supervisorAtividadesComplementares.isPresent()) {
+                curso.setSupervisorAtividadesComplementares(null);
+            } else {
+                curso.setSupervisorAtividadesComplementares(supervisorAtividadesComplementares.get());
+            }
+        }
+        return curso;
     }
 }

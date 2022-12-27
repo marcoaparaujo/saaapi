@@ -56,15 +56,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/v1/convenios/**")
                     .hasAnyRole("USER", "ADMIN")
-                .antMatchers("/api/v1/coordenadores/**")
+                .antMatchers("/api/v1/professores/**")
                     .hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/v1/cursos/**")
                     .hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/v1/estagios/**")
-                    .hasAnyRole("USER", "ADMIN")
-                .antMatchers("/api/v1/supervisoresatividadescomplementares/**")
-                    .hasAnyRole("USER", "ADMIN")
-                .antMatchers("/api/v1/supervisoresestagio/**")
                     .hasAnyRole("USER", "ADMIN")
                 .antMatchers("/api/v1/vagas/**")
                     .hasAnyRole("USER", "ADMIN")
@@ -82,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(
-                "/v1/api-docs",
+                "/v2/api-docs",
                 "/configuration/ui",
                 "/swagger-resources/**",
                 "/configuration/security",

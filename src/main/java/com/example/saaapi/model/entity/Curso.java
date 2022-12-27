@@ -25,6 +25,13 @@ public class Curso {
     private Boolean possuiEstagioNaoObrigatorio;
     private Integer cargaHorariaMinimaAtividadesComplementares;
 
+    @ManyToOne
+    private Professor coordenador;
+    @ManyToOne
+    private Professor supervisorEstagio;
+    @ManyToOne
+    private Professor supervisorAtividadesComplementares;
+
     @JsonIgnore
     @OneToMany(mappedBy = "curso")
     private List<Aluno> alunos;
