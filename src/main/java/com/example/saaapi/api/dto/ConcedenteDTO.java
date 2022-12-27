@@ -14,6 +14,8 @@ public class ConcedenteDTO {
     private String nome;
     private String email;
     private String celular;
+    private String dataInicio;
+    private String dataFim;
     private Integer tipoPessoa;
     private String numeroDocumento;
     private String registroConselhoProfissional;

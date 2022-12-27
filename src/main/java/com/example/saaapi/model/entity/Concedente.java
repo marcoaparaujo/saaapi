@@ -15,6 +15,8 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class Concedente extends Pessoa {
 
+    private String dataInicio;
+    private String dataFim;
     private Integer tipoPessoa;
     private String numeroDocumento;
     private String registroConselhoProfissional;

@@ -40,6 +40,9 @@ public class ConcedenteService {
     }
 
     public void validar(Concedente concedente) {
+        if (concedente.getDataInicio() == null || concedente.getDataInicio().trim().equals("")) {
+            throw new RegraNegocioException("Data Início inválida");
+        }
         if (concedente.getTipoPessoa() == null || concedente.getTipoPessoa() < 1 || concedente.getTipoPessoa() > 2) {
             throw new RegraNegocioException("Tipo Pessoa inválida");
         }
