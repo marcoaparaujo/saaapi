@@ -3,7 +3,6 @@ package com.example.saaapi.api.controller;
 import com.example.saaapi.api.dto.CoordenadorDTO;
 import com.example.saaapi.exception.RegraNegocioException;
 import com.example.saaapi.model.entity.Curso;
-import com.example.saaapi.model.entity.Concedente;
 import com.example.saaapi.model.entity.Coordenador;
 import com.example.saaapi.service.CursoService;
 import com.example.saaapi.service.CoordenadorService;
@@ -27,17 +26,17 @@ public class CoordenadorController {
 
     @GetMapping()
     public ResponseEntity get() {
-        List<Coordenador> professores = service.getCoordenadores();
-        return ResponseEntity.ok(professores.stream().map(CoordenadorDTO::create).collect(Collectors.toList()));
+        List<Coordenador> coordenadores = service.getCoordenadores();
+        return ResponseEntity.ok(coordenadores.stream().map(CoordenadorDTO::create).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable("id") Long id) {
-        Optional<Coordenador> professor = service.getCoordenadorById(id);
-        if (!professor.isPresent()) {
+        Optional<Coordenador> coordenador = service.getCoordenadorById(id);
+        if (!coordenador.isPresent()) {
             return new ResponseEntity("Coordenador não encontrado", HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity.ok(professor.map(CoordenadorDTO::create));
+        return ResponseEntity.ok(coordenador.map(CoordenadorDTO::create));
     }
 
     @PostMapping()
@@ -68,12 +67,12 @@ public class CoordenadorController {
 
     @DeleteMapping("{id}")
     public ResponseEntity excluir(@PathVariable("id") Long id) {
-        Optional<Coordenador> professor = service.getCoordenadorById(id);
-        if (!professor.isPresent()) {
+        Optional<Coordenador> coordenador = service.getCoordenadorById(id);
+        if (!coordenador.isPresent()) {
             return new ResponseEntity("Professor não encontrado", HttpStatus.NOT_FOUND);
         }
         try {
-            service.excluir(professor.get());
+            service.excluir(coordenador.get());
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         } catch (RegraNegocioException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -83,7 +82,6 @@ public class CoordenadorController {
     public Coordenador converter(CoordenadorDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Coordenador coordenador = modelMapper.map(dto, Coordenador.class);
-        Concedente concedente = modelMapper.map(dto, Concedente.class);
         if (dto.getIdCurso() != null) {
             Optional<Curso> curso = cursoService.getCursoById(dto.getIdCurso());
             if (!curso.isPresent()) {
