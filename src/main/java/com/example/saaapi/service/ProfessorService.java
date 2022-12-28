@@ -43,6 +43,9 @@ public class ProfessorService {
         if (professor.getNome() == null || professor.getNome().trim().equals("")) {
             throw new RegraNegocioException("Nome inválido");
         }
+        if (professor.getCpf() == null || professor.getCpf().trim().equals("")) {
+            throw new RegraNegocioException("CPF inválido");
+        }
         if (professor.getEmail() == null || professor.getEmail().trim().equals("")) {
             throw new RegraNegocioException("Email inválido");
         }

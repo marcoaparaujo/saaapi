@@ -19,8 +19,7 @@ public class Usuario {
     private Integer id;
 
     private String login;
-
+    private String cpf;
     private String senha;
-
     private boolean admin;
 }

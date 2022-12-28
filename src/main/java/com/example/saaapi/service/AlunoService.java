@@ -46,6 +46,9 @@ public class AlunoService {
         if (aluno.getNome() == null || aluno.getNome().trim().equals("")) {
             throw new RegraNegocioException("Nome inválido");
         }
+        if (aluno.getCpf() == null || aluno.getCpf().trim().equals("")) {
+            throw new RegraNegocioException("CPF inválido");
+        }
         if (aluno.getEmail() == null || aluno.getEmail().trim().equals("")) {
             throw new RegraNegocioException("Email inválido");
         }

@@ -21,6 +21,7 @@ public class ConcedenteDTO {
     private String registroConselhoProfissional;
     private Integer numeroEmpregados;
     private String nomeRepresentante;
+    private String cpf;
     private String logradouro;
     private Integer numero;
     private String complemento;

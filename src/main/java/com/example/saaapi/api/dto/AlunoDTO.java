@@ -14,6 +14,7 @@ public class AlunoDTO {
     private Long id;
     private Integer matricula;
     private String nome;
+    private String cpf;
     private String email;
     private String celular;
     private Long idCurso;

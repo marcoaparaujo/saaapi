@@ -58,5 +58,8 @@ public class ConcedenteService {
         if (concedente.getNomeRepresentante() == null || concedente.getNomeRepresentante().trim().equals("")) {
             throw new RegraNegocioException("Nome Representante inválido");
         }
+        if (concedente.getCpf() == null || concedente.getCpf().trim().equals("")) {
+            throw new RegraNegocioException("CPF inválido");
+        }
     }
 }
