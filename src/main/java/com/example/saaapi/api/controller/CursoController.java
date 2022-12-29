@@ -27,6 +27,7 @@ public class CursoController {
     private final CursoService service;
     private final ProfessorService professorService;
 
+    @CrossOrigin
     @GetMapping()
     public ResponseEntity get() {
         List<Curso> cursos = service.getCursos();

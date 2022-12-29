@@ -22,6 +22,7 @@ public class ConcedenteController {
 
     private final ConcedenteService service;
 
+    @CrossOrigin
     @GetMapping()
     public ResponseEntity get() {
         List<Concedente> concedentes = service.getConcedentes();

@@ -25,6 +25,7 @@ public class AlunoController {
     private final AlunoService service;
     private final CursoService cursoService;
 
+    @CrossOrigin
     @GetMapping()
     public ResponseEntity get() {
         List<Aluno> alunos = service.getAlunos();

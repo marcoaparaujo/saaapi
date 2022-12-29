@@ -28,6 +28,7 @@ public class EstagioController {
     private final AlunoService alunoService;
     private final ConcedenteService concedenteService;
 
+    @CrossOrigin
     @GetMapping()
     public ResponseEntity get() {
         List<Estagio> estagios = service.getEstagios();

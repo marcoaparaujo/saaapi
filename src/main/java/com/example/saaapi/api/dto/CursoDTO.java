@@ -22,7 +22,6 @@ public class CursoDTO {
     private Long idSupervisorEstagio;
     private Long idSupervisorAtividadesComplementares;
 
-
     public static CursoDTO create(Curso curso) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(curso, CursoDTO.class);

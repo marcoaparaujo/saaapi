@@ -31,6 +31,7 @@ public class AtividadeComplementarController {
     private final AlunoService alunoService;
     private final CategoriaService categoriaService;
 
+    @CrossOrigin
     @GetMapping()
     public ResponseEntity get() {
         List<AtividadeComplementar> atividadeComplementares = service.getAtividadesComplementares();

@@ -1,6 +1,7 @@
 package com.example.saaapi.service;
 
 import com.example.saaapi.exception.SenhaInvalidaException;
+import com.example.saaapi.model.entity.Aluno;
 import com.example.saaapi.model.entity.Usuario;
 import com.example.saaapi.model.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class UsuarioService implements UserDetailsService {
 
@@ -20,6 +23,10 @@ public class UsuarioService implements UserDetailsService {
 
     @Autowired
     private UsuarioRepository repository;
+
+    public List<Usuario> getUsuarios() {
+        return repository.findAll();
+    }
 
     @Transactional
     public Usuario salvar(Usuario usuario){

@@ -22,6 +22,7 @@ public class CategoriaController {
 
     private final CategoriaService service;
 
+    @CrossOrigin
     @GetMapping()
     public ResponseEntity get() {
         List<Categoria> categorias = service.getCategorias();

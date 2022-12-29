@@ -1,6 +1,7 @@
 package com.example.saaapi.api.dto;
 
 import com.example.saaapi.model.entity.Estagio;
+import com.example.saaapi.service.AlunoService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,10 +19,15 @@ public class EstagioDTO {
     private Integer tipoEstagio;
     private String planoAtividades;
     private Long idAluno;
+    private String nomeAluno;
     private Long idConcedente;
+    private String nomeConcedente;
 
     public static EstagioDTO create(Estagio estagio) {
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(estagio, EstagioDTO.class);
+        EstagioDTO dto = modelMapper.map(estagio, EstagioDTO.class);
+        dto.nomeAluno = estagio.getAluno().getNome();
+        dto.nomeConcedente = estagio.getConcedente().getNome();
+        return dto;
     }
 }
