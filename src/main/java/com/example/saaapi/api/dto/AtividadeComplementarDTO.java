@@ -19,11 +19,15 @@ public class AtividadeComplementarDTO {
     private String certificado;
     private String link;
     private Long idAluno;
+    private String nomeAluno;
     private Long idCategoria;
+    private String nomeCategoria;
 
     public static AtividadeComplementarDTO create(AtividadeComplementar atividadeComplementar) {
         ModelMapper modelMapper = new ModelMapper();
         AtividadeComplementarDTO dto = modelMapper.map(atividadeComplementar, AtividadeComplementarDTO.class);
+        dto.nomeAluno = atividadeComplementar.getAluno().getNome();
+        dto.nomeCategoria = atividadeComplementar.getCategoria().getDescricao();
         return dto;
     }
 }
