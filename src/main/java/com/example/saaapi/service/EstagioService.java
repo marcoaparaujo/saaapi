@@ -40,26 +40,26 @@ public class EstagioService {
     }
 
     public void validar(Estagio estagio) {
+        if (estagio.getAluno() == null || estagio.getAluno().getId() == null || estagio.getAluno().getId() == 0) {
+            throw new RegraNegocioException("Aluno inválido");
+        }
+        if (estagio.getConcedente() == null || estagio.getConcedente().getId() == null || estagio.getConcedente().getId() == 0) {
+            throw new RegraNegocioException("Concedente inválida");
+        }
+        if (estagio.getTipoEstagio() < 1 || estagio.getTipoEstagio() > 2) {
+            throw new RegraNegocioException("Tipo Estágio inválida");
+        }
         if (estagio.getDataInicio() == null || estagio.getDataInicio().trim().equals("")) {
             throw new RegraNegocioException("Data Início inválida");
         }
         if (estagio.getDataFim() == null || estagio.getDataFim().trim().equals("")) {
             throw new RegraNegocioException("Data Fim inválida");
         }
-        if (estagio.getTipoEstagio() == null || estagio.getTipoEstagio() < 1 || estagio.getTipoEstagio() > 2) {
-            throw new RegraNegocioException("Tipo Estágio inválida");
-        }
         if (estagio.getCargaHoraria() == null || estagio.getCargaHoraria() == 0) {
             throw new RegraNegocioException("Carga Horária inválida");
         }
         if (estagio.getPlanoAtividades() == null || estagio.getPlanoAtividades().trim().equals("")) {
             throw new RegraNegocioException("Plano Atividades inválido");
-        }
-        if (estagio.getConcedente() == null || estagio.getConcedente().getId() == null || estagio.getConcedente().getId() == 0) {
-            throw new RegraNegocioException("Concedente inválida");
-        }
-        if (estagio.getAluno() == null || estagio.getAluno().getId() == null || estagio.getAluno().getId() == 0) {
-            throw new RegraNegocioException("Aluno inválido");
         }
     }
 }
