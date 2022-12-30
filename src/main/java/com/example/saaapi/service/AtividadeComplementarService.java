@@ -39,6 +39,9 @@ public class AtividadeComplementarService {
     }
 
     public void validar(AtividadeComplementar atividadeComplementar) {
+        if (atividadeComplementar.getAluno() == null || atividadeComplementar.getAluno().getId() == null || atividadeComplementar.getAluno().getId() == 0) {
+            throw new RegraNegocioException("Aluno inválido");
+        }
         if (atividadeComplementar.getTitulo() == null || atividadeComplementar.getTitulo().trim().equals("")) {
             throw new RegraNegocioException("Título inválido");
         }
@@ -48,14 +51,11 @@ public class AtividadeComplementarService {
         if (atividadeComplementar.getCargaHoraria() == null || atividadeComplementar.getCargaHoraria() == 0) {
             throw new RegraNegocioException("Carga Horária inválida");
         }
-        if (atividadeComplementar.getDataInicio() == null || atividadeComplementar.getDataInicio().trim().equals("")) {
-            throw new RegraNegocioException("Data Início inválida");
-        }
-        if (atividadeComplementar.getAluno() == null || atividadeComplementar.getAluno().getId() == null || atividadeComplementar.getAluno().getId() == 0) {
-            throw new RegraNegocioException("Aluno inválido");
-        }
         if (atividadeComplementar.getCategoria() == null || atividadeComplementar.getCategoria().getId() == null || atividadeComplementar.getCategoria().getId() == 0) {
             throw new RegraNegocioException("Categoria inválida");
+        }
+        if (atividadeComplementar.getDataInicio() == null || atividadeComplementar.getDataInicio().trim().equals("")) {
+            throw new RegraNegocioException("Data Início inválida");
         }
     }
 }
