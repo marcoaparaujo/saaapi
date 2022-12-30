@@ -20,12 +20,12 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/alunos")
 @RequiredArgsConstructor
+@CrossOrigin
 public class AlunoController {
 
     private final AlunoService service;
     private final CursoService cursoService;
 
-    @CrossOrigin
     @GetMapping()
     public ResponseEntity get() {
         List<Aluno> alunos = service.getAlunos();
@@ -42,7 +42,7 @@ public class AlunoController {
     }
 
     @PostMapping()
-    public ResponseEntity post(AlunoDTO dto) {
+    public ResponseEntity post(@RequestBody AlunoDTO dto) {
         try {
             Aluno aluno = converter(dto);
             aluno = service.salvar(aluno);
@@ -53,7 +53,7 @@ public class AlunoController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, AlunoDTO dto) {
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody AlunoDTO dto) {
         if (!service.getAlunoById(id).isPresent()) {
             return new ResponseEntity("Aluno não encontrado", HttpStatus.NOT_FOUND);
         }

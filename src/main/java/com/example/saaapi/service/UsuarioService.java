@@ -1,7 +1,9 @@
 package com.example.saaapi.service;
 
+import com.example.saaapi.exception.RegraNegocioException;
 import com.example.saaapi.exception.SenhaInvalidaException;
 import com.example.saaapi.model.entity.Aluno;
+import com.example.saaapi.model.entity.Professor;
 import com.example.saaapi.model.entity.Usuario;
 import com.example.saaapi.model.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,7 @@ public class UsuarioService implements UserDetailsService {
 
     @Transactional
     public Usuario salvar(Usuario usuario){
+        validar(usuario);
         return repository.save(usuario);
     }
 
@@ -59,5 +62,14 @@ public class UsuarioService implements UserDetailsService {
                 .password(usuario.getSenha())
                 .roles(roles)
                 .build();
+    }
+
+    public void validar(Usuario usuario) {
+        if (usuario.getLogin() == null || usuario.getLogin().trim().equals("")) {
+            throw new RegraNegocioException("Login inválido");
+        }
+        if (usuario.getCpf() == null || usuario.getCpf().trim().equals("")) {
+            throw new RegraNegocioException("CPF inválido");
+        }
     }
 }

@@ -25,13 +25,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/atividadescomplementares")
 @RequiredArgsConstructor
+@CrossOrigin
 public class AtividadeComplementarController {
 
     private final AtividadeComplementarService service;
     private final AlunoService alunoService;
     private final CategoriaService categoriaService;
 
-    @CrossOrigin
     @GetMapping()
     public ResponseEntity get() {
         List<AtividadeComplementar> atividadeComplementares = service.getAtividadesComplementares();
@@ -48,7 +48,7 @@ public class AtividadeComplementarController {
     }
 
     @PostMapping()
-    public ResponseEntity post(AtividadeComplementarDTO dto) {
+    public ResponseEntity post(@RequestBody AtividadeComplementarDTO dto) {
         try {
             AtividadeComplementar atividadeComplementar = converter(dto);
             atividadeComplementar = service.salvar(atividadeComplementar);
@@ -59,7 +59,7 @@ public class AtividadeComplementarController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, AtividadeComplementarDTO dto) {
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody AtividadeComplementarDTO dto) {
         if (!service.getAtividadeComplementarById(id).isPresent()) {
             return new ResponseEntity("Atividade Complementar não encontrada", HttpStatus.NOT_FOUND);
         }

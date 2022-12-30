@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/professores")
 @RequiredArgsConstructor
+@CrossOrigin
 public class ProfessorController {
 
     private final ProfessorService service;
     private final CursoService cursoService;
 
-    @CrossOrigin
     @GetMapping()
     public ResponseEntity get() {
         List<Professor> professores = service.getProfessores();
@@ -41,7 +41,7 @@ public class ProfessorController {
     }
 
     @PostMapping()
-    public ResponseEntity post(ProfessorDTO dto) {
+    public ResponseEntity post(@RequestBody ProfessorDTO dto) {
         try {
             Professor professor = converter(dto);
             professor = service.salvar(professor);
@@ -52,7 +52,7 @@ public class ProfessorController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, ProfessorDTO dto) {
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody ProfessorDTO dto) {
         if (!service.getProfessorById(id).isPresent()) {
             return new ResponseEntity("Professor não encontrado", HttpStatus.NOT_FOUND);
         }

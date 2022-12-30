@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/concedentes")
 @RequiredArgsConstructor
+@CrossOrigin
 public class ConcedenteController {
 
     private final ConcedenteService service;
 
-    @CrossOrigin
     @GetMapping()
     public ResponseEntity get() {
         List<Concedente> concedentes = service.getConcedentes();
@@ -39,7 +39,7 @@ public class ConcedenteController {
     }
 
     @PostMapping()
-    public ResponseEntity post(ConcedenteDTO dto) {
+    public ResponseEntity post(@RequestBody ConcedenteDTO dto) {
         try {
             Concedente concedente = converter(dto);
             concedente = service.salvar(concedente);
@@ -50,7 +50,7 @@ public class ConcedenteController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, ConcedenteDTO dto) {
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody ConcedenteDTO dto) {
         if (!service.getConcedenteById(id).isPresent()) {
             return new ResponseEntity("Concedente não encontrada", HttpStatus.NOT_FOUND);
         }

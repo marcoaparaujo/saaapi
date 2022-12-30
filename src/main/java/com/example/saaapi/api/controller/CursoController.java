@@ -22,12 +22,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/cursos")
 @RequiredArgsConstructor
 @Api("API de Cursos")
+@CrossOrigin
 public class CursoController {
 
     private final CursoService service;
     private final ProfessorService professorService;
 
-    @CrossOrigin
     @GetMapping()
     public ResponseEntity get() {
         List<Curso> cursos = service.getCursos();
@@ -55,7 +55,7 @@ public class CursoController {
             @ApiResponse(code = 201, message = "Curso salvo com sucesso"),
             @ApiResponse(code = 400, message = "Erro ao salvar o curso")
     })
-    public ResponseEntity post(CursoDTO dto) {
+    public ResponseEntity post(@RequestBody CursoDTO dto) {
         try {
             Curso curso = converter(dto);
             curso = service.salvar(curso);
@@ -66,7 +66,7 @@ public class CursoController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, CursoDTO dto) {
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody CursoDTO dto) {
         if (!service.getCursoById(id).isPresent()) {
             return new ResponseEntity("Curso não encontrado", HttpStatus.NOT_FOUND);
         }
@@ -97,29 +97,35 @@ public class CursoController {
     public Curso converter(CursoDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Curso curso = modelMapper.map(dto, Curso.class);
-        if (dto.getIdCoordenador() != null) {
+        if (dto.getIdCoordenador() != 0) {
             Optional<Professor> coordenador = professorService.getProfessorById(dto.getIdCoordenador());
             if (!coordenador.isPresent()) {
                 curso.setCoordenador(null);
             } else {
                 curso.setCoordenador(coordenador.get());
             }
+        } else {
+            curso.setCoordenador(null);
         }
-        if (dto.getIdSupervisorEstagio() != null) {
+        if (dto.getIdSupervisorEstagio() != 0) {
             Optional<Professor> supervisorEstagio = professorService.getProfessorById(dto.getIdSupervisorEstagio());
             if (!supervisorEstagio.isPresent()) {
                 curso.setSupervisorEstagio(null);
             } else {
                 curso.setSupervisorEstagio(supervisorEstagio.get());
             }
+        } else {
+            curso.setSupervisorEstagio(null);
         }
-        if (dto.getIdSupervisorAtividadesComplementares() != null) {
+        if (dto.getIdSupervisorAtividadesComplementares() != 0) {
             Optional<Professor> supervisorAtividadesComplementares = professorService.getProfessorById(dto.getIdSupervisorAtividadesComplementares());
             if (!supervisorAtividadesComplementares.isPresent()) {
                 curso.setSupervisorAtividadesComplementares(null);
             } else {
                 curso.setSupervisorAtividadesComplementares(supervisorAtividadesComplementares.get());
             }
+        } else {
+            curso.setSupervisorAtividadesComplementares(null);
         }
         return curso;
     }

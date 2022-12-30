@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/vagas")
 @RequiredArgsConstructor
+@CrossOrigin
 public class VagaController {
 
     private final VagaService service;
@@ -44,7 +45,7 @@ public class VagaController {
     }
 
     @PostMapping()
-    public ResponseEntity post(VagaDTO dto) {
+    public ResponseEntity post(@RequestBody VagaDTO dto) {
         try {
             Vaga vaga = converter(dto);
             vaga = service.salvar(vaga);
@@ -55,7 +56,7 @@ public class VagaController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, VagaDTO dto) {
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody VagaDTO dto) {
         if (!service.getVagaById(id).isPresent()) {
             return new ResponseEntity("Vaga não encontrada", HttpStatus.NOT_FOUND);
         }

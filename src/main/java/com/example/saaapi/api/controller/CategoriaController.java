@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/categorias")
 @RequiredArgsConstructor
+@CrossOrigin
 public class CategoriaController {
 
     private final CategoriaService service;
 
-    @CrossOrigin
     @GetMapping()
     public ResponseEntity get() {
         List<Categoria> categorias = service.getCategorias();
@@ -39,7 +39,7 @@ public class CategoriaController {
     }
 
     @PostMapping()
-    public ResponseEntity post(CategoriaDTO dto) {
+    public ResponseEntity post(@RequestBody CategoriaDTO dto) {
         try {
             Categoria categoria = converter(dto);
             categoria = service.salvar(categoria);
@@ -50,7 +50,7 @@ public class CategoriaController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, CategoriaDTO dto) {
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody CategoriaDTO dto) {
         if (!service.getCategoriaById(id).isPresent()) {
             return new ResponseEntity("Categoria não encontrada", HttpStatus.NOT_FOUND);
         }

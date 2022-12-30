@@ -22,13 +22,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/estagios")
 @RequiredArgsConstructor
+@CrossOrigin
 public class EstagioController {
 
     private final EstagioService service;
     private final AlunoService alunoService;
     private final ConcedenteService concedenteService;
 
-    @CrossOrigin
     @GetMapping()
     public ResponseEntity get() {
         List<Estagio> estagios = service.getEstagios();
@@ -45,7 +45,7 @@ public class EstagioController {
     }
 
     @PostMapping()
-    public ResponseEntity post(EstagioDTO dto) {
+    public ResponseEntity post(@RequestBody EstagioDTO dto) {
         try {
             Estagio estagio = converter(dto);
             estagio = service.salvar(estagio);
@@ -56,7 +56,7 @@ public class EstagioController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity atualizar(@PathVariable("id") Long id, EstagioDTO dto) {
+    public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody EstagioDTO dto) {
         if (!service.getEstagioById(id).isPresent()) {
             return new ResponseEntity("Estágio não encontrado", HttpStatus.NOT_FOUND);
         }
