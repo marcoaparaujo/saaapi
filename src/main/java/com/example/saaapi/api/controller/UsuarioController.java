@@ -5,6 +5,7 @@ import com.example.saaapi.exception.RegraNegocioException;
 import com.example.saaapi.exception.SenhaInvalidaException;
 import com.example.saaapi.model.entity.Aluno;
 import com.example.saaapi.model.entity.Categoria;
+import com.example.saaapi.model.entity.Curso;
 import com.example.saaapi.model.entity.Usuario;
 import com.example.saaapi.security.JwtService;
 import com.example.saaapi.service.AlunoService;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -71,6 +73,20 @@ public class UsuarioController {
             return new TokenDTO(usuario.getLogin(), token);
         } catch (UsernameNotFoundException | SenhaInvalidaException e ){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity delete(@PathVariable("id") Long id) {
+        Optional<Usuario> usuario = service.getUsuarioById(id);
+        if (!usuario.isPresent()) {
+            return new ResponseEntity("Usuário não encontrado", HttpStatus.NOT_FOUND);
+        }
+        try {
+            service.excluir(usuario.get());
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        } catch (RegraNegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

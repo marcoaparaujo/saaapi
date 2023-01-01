@@ -3,6 +3,7 @@ package com.example.saaapi.service;
 import com.example.saaapi.exception.RegraNegocioException;
 import com.example.saaapi.exception.SenhaInvalidaException;
 import com.example.saaapi.model.entity.Aluno;
+import com.example.saaapi.model.entity.Curso;
 import com.example.saaapi.model.entity.Professor;
 import com.example.saaapi.model.entity.Usuario;
 import com.example.saaapi.model.repository.UsuarioRepository;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class UsuarioService implements UserDetailsService {
@@ -28,6 +31,10 @@ public class UsuarioService implements UserDetailsService {
 
     public List<Usuario> getUsuarios() {
         return repository.findAll();
+    }
+
+    public Optional<Usuario> getUsuarioById(Long id) {
+        return repository.findById(id);
     }
 
     @Transactional
@@ -62,6 +69,12 @@ public class UsuarioService implements UserDetailsService {
                 .password(usuario.getSenha())
                 .roles(roles)
                 .build();
+    }
+
+    @Transactional
+    public void excluir(Usuario usuario) {
+        Objects.requireNonNull(usuario.getId());
+        repository.delete(usuario);
     }
 
     public void validar(Usuario usuario) {
