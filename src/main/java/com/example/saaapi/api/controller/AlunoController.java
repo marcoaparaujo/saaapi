@@ -2,11 +2,14 @@ package com.example.saaapi.api.controller;
 
 import com.example.saaapi.api.dto.AlunoDTO;
 
+import com.example.saaapi.api.dto.EstagioDTO;
 import com.example.saaapi.exception.RegraNegocioException;
 import com.example.saaapi.model.entity.Aluno;
 import com.example.saaapi.model.entity.Curso;
+import com.example.saaapi.model.entity.Estagio;
 import com.example.saaapi.service.AlunoService;
 import com.example.saaapi.service.CursoService;
+import com.example.saaapi.service.EstagioService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -25,6 +28,7 @@ public class AlunoController {
 
     private final AlunoService service;
     private final CursoService cursoService;
+    private final EstagioService estagioService;
 
     @GetMapping()
     public ResponseEntity get() {
@@ -39,6 +43,16 @@ public class AlunoController {
             return new ResponseEntity("Aluno não encontrado", HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(aluno.map(AlunoDTO::create));
+    }
+
+    @GetMapping("{id}/estagios")
+    public ResponseEntity getEstagios(@PathVariable("id") Long id) {
+        Optional<Aluno> aluno = service.getAlunoById(id);
+        if (!aluno.isPresent()) {
+            return new ResponseEntity("Aluno não encontrado", HttpStatus.NOT_FOUND);
+        }
+        List<Estagio> estagios = estagioService.getEstagiosByAluno(aluno);
+        return ResponseEntity.ok(estagios.stream().map(EstagioDTO::create).collect(Collectors.toList()));
     }
 
     @PostMapping()

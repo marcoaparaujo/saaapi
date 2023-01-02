@@ -1,6 +1,7 @@
 package com.example.saaapi.service;
 
 import com.example.saaapi.exception.RegraNegocioException;
+import com.example.saaapi.model.entity.Aluno;
 import com.example.saaapi.model.entity.Estagio;
 import com.example.saaapi.model.repository.EstagioRepository;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,10 @@ public class EstagioService {
 
     public Optional<Estagio> getEstagioById(Long id) {
         return repository.findById(id);
+    }
+
+    public List<Estagio> getEstagiosByAluno(Optional<Aluno> aluno) {
+        return repository.findByAluno(aluno);
     }
 
     @Transactional
