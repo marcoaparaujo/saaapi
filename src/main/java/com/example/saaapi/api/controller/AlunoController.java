@@ -2,12 +2,15 @@ package com.example.saaapi.api.controller;
 
 import com.example.saaapi.api.dto.AlunoDTO;
 
+import com.example.saaapi.api.dto.AtividadeComplementarDTO;
 import com.example.saaapi.api.dto.EstagioDTO;
 import com.example.saaapi.exception.RegraNegocioException;
 import com.example.saaapi.model.entity.Aluno;
+import com.example.saaapi.model.entity.AtividadeComplementar;
 import com.example.saaapi.model.entity.Curso;
 import com.example.saaapi.model.entity.Estagio;
 import com.example.saaapi.service.AlunoService;
+import com.example.saaapi.service.AtividadeComplementarService;
 import com.example.saaapi.service.CursoService;
 import com.example.saaapi.service.EstagioService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +32,7 @@ public class AlunoController {
     private final AlunoService service;
     private final CursoService cursoService;
     private final EstagioService estagioService;
+    private final AtividadeComplementarService atividadeComplementarService;
 
     @GetMapping()
     public ResponseEntity get() {
@@ -53,6 +57,16 @@ public class AlunoController {
         }
         List<Estagio> estagios = estagioService.getEstagiosByAluno(aluno);
         return ResponseEntity.ok(estagios.stream().map(EstagioDTO::create).collect(Collectors.toList()));
+    }
+
+    @GetMapping("{id}/atividadescomplementares")
+    public ResponseEntity getAtividadesComplementares(@PathVariable("id") Long id) {
+        Optional<Aluno> aluno = service.getAlunoById(id);
+        if (!aluno.isPresent()) {
+            return new ResponseEntity("Aluno não encontrado", HttpStatus.NOT_FOUND);
+        }
+        List<AtividadeComplementar> atividadesComplementares = atividadeComplementarService.getAtividadesComplementaresByAluno(aluno);
+        return ResponseEntity.ok(atividadesComplementares.stream().map(AtividadeComplementarDTO::create).collect(Collectors.toList()));
     }
 
     @PostMapping()

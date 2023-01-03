@@ -1,6 +1,7 @@
 package com.example.saaapi.service;
 
 import com.example.saaapi.exception.RegraNegocioException;
+import com.example.saaapi.model.entity.Aluno;
 import com.example.saaapi.model.entity.AtividadeComplementar;
 import com.example.saaapi.model.repository.AtividadeComplementarRepository;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,10 @@ public class AtividadeComplementarService {
 
     public Optional<AtividadeComplementar> getAtividadeComplementarById(Long id) {
         return repository.findById(id);
+    }
+
+    public List<AtividadeComplementar> getAtividadesComplementaresByAluno(Optional<Aluno> aluno) {
+        return repository.findByAluno(aluno);
     }
 
     @Transactional
