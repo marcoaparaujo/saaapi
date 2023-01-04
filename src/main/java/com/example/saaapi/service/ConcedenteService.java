@@ -61,5 +61,8 @@ public class ConcedenteService {
         if (concedente.getDataInicio() == null || concedente.getDataInicio().trim().equals("")) {
             throw new RegraNegocioException("Data Início inválida");
         }
+        if (concedente.getDataFim() == null || concedente.getDataFim().trim().equals("")) {
+            throw new RegraNegocioException("Data Fim inválida");
+        }
     }
 }
