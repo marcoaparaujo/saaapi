@@ -62,5 +62,8 @@ public class AtividadeComplementarService {
         if (atividadeComplementar.getDataInicio() == null || atividadeComplementar.getDataInicio().trim().equals("")) {
             throw new RegraNegocioException("Data Início inválida");
         }
+        if (atividadeComplementar.getDataFim() == null || atividadeComplementar.getDataFim().trim().equals("")) {
+            throw new RegraNegocioException("Data Fim inválida");
+        }
     }
 }
