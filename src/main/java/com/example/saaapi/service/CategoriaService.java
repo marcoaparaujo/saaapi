@@ -35,9 +35,9 @@ public class CategoriaService {
     }
 
     @Transactional
-    public void excluir(Categoria aluno) {
-        Objects.requireNonNull(aluno.getId());
-        repository.delete(aluno);
+    public void excluir(Categoria categoria) {
+        Objects.requireNonNull(categoria.getId());
+        repository.delete(categoria);
     }
 
     public void validar(Categoria categoria) {

@@ -45,9 +45,9 @@ public class SwaggerConfig {
     }
 
     private Contact contact(){
-        return new Contact("Julia e Marina Condé Araújo"
-                , "http://github.com/",
-                "julia.conde.araujo@gmail.com / marina.araujo.conde@gmail.com");
+        return new Contact("Marco Antônio Pereira Araújo"
+                , "http://github.com/marcoaparaujo",
+                "marcoaparaujo@gmail.com");
     }
 
 

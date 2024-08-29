@@ -24,3 +24,5 @@ public class Categoria {
     private Integer cargaHorariaMaxima;
     private Integer quantidadeMinimaCategoria;
 }
+
+
