@@ -1,5 +1,6 @@
 package com.example.saaapi.api.controller;
 
+import com.example.saaapi.api.dto.AlunoDTO;
 import com.example.saaapi.api.dto.CursoDTO;
 import com.example.saaapi.exception.RegraNegocioException;
 import com.example.saaapi.model.entity.Aluno;
@@ -128,5 +129,15 @@ public class CursoController {
             curso.setSupervisorAtividadesComplementares(null);
         }
         return curso;
+    }
+
+    @GetMapping("/{id}/alunos")
+    public ResponseEntity getAlunos(@PathVariable("id") Long id) {
+        Optional<Curso> curso = service.getCursoById(id);
+        if (!curso.isPresent()) {
+            return new ResponseEntity("Curso não encontrado", HttpStatus.NOT_FOUND);
+        }
+        List<Aluno> alunos = curso.get().getAlunos();
+        return ResponseEntity.ok(alunos.stream().map(AlunoDTO::create).collect(Collectors.toList()));
     }
 }
